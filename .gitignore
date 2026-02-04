@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+workday.db
+.env
+node_modules/
+dist/
