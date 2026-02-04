@@ -26,12 +26,18 @@ y el tiempo total laborado.
 Instalar dependencias:
 ```bash
 pip install fastapi uvicorn sqlalchemy
+```
 
-Ejecutar servidor
+### Ejecutar servidor
+```bash
 python -m uvicorn backend.main:app --reload
+```
 
+### Frontend
 abrir el archivo 
+```bash
 frontend/index.html
+```
 en el navegador
 
 
