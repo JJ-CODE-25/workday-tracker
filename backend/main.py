@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Depends
 from datetime import datetime
 from sqlalchemy.orm import Session
 from backend.database import SessionLocal, engine
@@ -19,12 +19,14 @@ Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = SessionLocal()
-    return db
+    try:
+        yield db
+    finally:
+        db.close()
 
 # Iniciar jornada
 @app.post("/start")
-def start_jornada(worker_code: str):
-    db: Session = get_db()
+def start_jornada(worker_code: str, db: Session = Depends(get_db)):
 
     # Verificar si la jornada ya está iniciada
     abierta = db.query(WorkSession).filter(
@@ -48,7 +50,7 @@ def start_jornada(worker_code: str):
 
 # Obtener jornada activa
 @app.get("/active")
-def get_active_session(worker_code: str = Query(...)):
+def get_active_session(worker_code: str = Query(...), db: Session = Depends(get_db)):
     db: Session = get_db()
 
     abierta = db.query(WorkSession).filter(
@@ -68,8 +70,7 @@ def get_active_session(worker_code: str = Query(...)):
 
 # Terminar jornada
 @app.post("/end/{session_id}")
-def end_jornada(session_id: int):
-    db: Session = get_db()
+def end_jornada(session_id: int, db: Session = Depends(get_db)):
 
     session = db.query(WorkSession).filter(
         WorkSession.id == session_id

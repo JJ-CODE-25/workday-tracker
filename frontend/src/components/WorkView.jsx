@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { endWork } from "../services/api"
 
-export default function WorkView({ session, onEnd }) {
+export default function WorkView({ session, onEnd, onReset }) {
 
   const [seconds, setSeconds] = useState(0)
 
@@ -56,6 +56,10 @@ export default function WorkView({ session, onEnd }) {
 
         <button className="end" onClick={handleEnd}>
           ⬛ TERMINAR JORNADA
+        </button>
+
+        <button className="back" onClick={onReset}>
+         VOLVER AL INICIO
         </button>
 
       </div>

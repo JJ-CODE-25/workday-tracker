@@ -1,5 +1,21 @@
 export default function EndView({ workerCode, totalSeconds, onReset }) {
 
+    function formatWorkedTime(totalSeconds) {
+
+        const hours = Math.floor(totalSeconds / 3600)
+        const minutes = Math.floor((totalSeconds % 3600) / 60)
+        const seconds = totalSeconds % 60
+      
+        let parts = []
+      
+        if (hours > 0) parts.push(`${hours} hora${hours > 1 ? "s" : ""}`)
+        if (minutes > 0) parts.push(`${minutes} minuto${minutes > 1 ? "s" : ""}`)
+        if (seconds > 0 || parts.length === 0)
+          parts.push(`${seconds} segundo${seconds !== 1 ? "s" : ""}`)
+      
+        return parts.join(", ")
+      }
+
     const format = (s) => {
   
       const h = String(Math.floor(s / 3600)).padStart(2, "0")
@@ -33,12 +49,12 @@ export default function EndView({ workerCode, totalSeconds, onReset }) {
           </p>
   
           <p>
-            <strong>TIEMPO LABORADO:</strong>
+            <strong>DURACIÓN DE LA JORNADA:</strong>
             <span style={{color:"#4f46e5"}}> {time}</span>
           </p>
   
           <p style={{color:"#666"}}>
-            Usted ha laborado {time}, muchas gracias.
+            Usted ha laborado {formatWorkedTime(totalSeconds)}, muchas gracias.
           </p>
   
           <button className="start" onClick={onReset}>

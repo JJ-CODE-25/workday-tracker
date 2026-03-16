@@ -25,6 +25,7 @@ function App(){
   <WorkView
     session={session}
     onEnd={setFinished}
+    onReset={reset}
   />
 }
 
