@@ -49,6 +49,7 @@ npm run dev
 http://localhost:5173
 
 ## Estructura del proyecto
+```
 workday-tracker
 │
 ├── backend
@@ -61,7 +62,9 @@ workday-tracker
 │   │   ├── components
 │   │   ├── services
 │   │   └── styles
-│   │
+│   ├── App.jsx
+│   └── main.jsx
 │   └── package.json
 │
 └── workday.db
+```
