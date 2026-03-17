@@ -51,7 +51,6 @@ def start_jornada(worker_code: str, db: Session = Depends(get_db)):
 # Obtener jornada activa
 @app.get("/active")
 def get_active_session(worker_code: str = Query(...), db: Session = Depends(get_db)):
-    db: Session = get_db()
 
     abierta = db.query(WorkSession).filter(
         WorkSession.worker_code == worker_code,
